@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ArticuloRepository extends CrudRepository<Articulo, Long> {
+public interface RepoArticulo extends CrudRepository<Articulo, Long> {
 
     List<Articulo> findByCarrito(Carrito carrito);
 }

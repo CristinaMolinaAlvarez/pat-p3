@@ -1,56 +1,73 @@
 package edu.comillas.icai.gitt.pat.spring.Cristina_P2.controlador;
 
-import edu.comillas.icai.gitt.pat.spring.Cristina_P2.modelo.Carrito;
+import edu.comillas.icai.gitt.pat.spring.Cristina_P2.entidad.Articulo;
+import edu.comillas.icai.gitt.pat.spring.Cristina_P2.entidad.Carrito;
+import edu.comillas.icai.gitt.pat.spring.Cristina_P2.entidad.Usuario;
+import edu.comillas.icai.gitt.pat.spring.Cristina_P2.servicio.CarritoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 @RestController
 public class CarritoControlador {
-    //private final Map<Integer, Carrito> carritos = new HashMap<>();
-    //recomendación Álvaro:  HM hardcodeado para no tener que meterlo cada vez en PostMan
-    private final Map<Integer, Carrito> carritos = new HashMap<>(Map.of(
-            1, new Carrito(1, 100, "Libro", 2, 30.0),
-            2, new Carrito(2, 200, "Cuaderno", 5, 12.5),
-            3, new Carrito(3, 300, "Bolígrafo", 10, 8.0)
-    ));
 
-    @PostMapping("/api/carrito")
+    @Autowired
+    private CarritoService carritoService;
+
+
+    // Crear carrito para un usuario
+    @PostMapping("/api/carrito/{idUsuario}")
     @ResponseStatus(HttpStatus.CREATED)
-    // añadimos la anotación de la validation e importamos
-    public Carrito creaCarrito(@Valid @RequestBody Carrito carrito) {
-        // se implementar con persistencia en base de datos
-        carritos.put(carrito.getIdCarrito(), carrito);
-        return carrito;
+    public Carrito crearCarrito(@PathVariable Long idUsuario) {
+        return carritoService.crearCarrito(idUsuario);
     }
-    // Devuelve lista carritos
+
+
+    // Obtener todos los carritos
     @GetMapping("/api/carrito")
-    public Collection<Carrito> getCarritos() {
-        //Carrito demo = new Carrito("idCarrito");
-        return carritos.values();
+    public List<Carrito> getCarritos() {
+        return carritoService.obtenerTodos();
     }
-    // Devuelve descripción del carrito
+
+
+    // Obtener un carrito concreto
     @GetMapping("/api/carrito/{idCarrito}")
-    public Carrito getCarrito(@PathVariable int idCarrito) {
-        return carritos.get(idCarrito);
+    public Carrito getCarrito(@PathVariable Long idCarrito) {
+        return carritoService.obtenerCarrito(idCarrito);
     }
 
-    //Modificar Carrito (Update de cualquier elemento de manera dinamica)
-    @PutMapping("/api/carrito/{idCarrito}")
-    public Carrito modificaCarrito(@PathVariable int idCarrito,
-                                   @Valid @RequestBody Carrito carrito) {
-        carritos.put(idCarrito, carrito);
-        return carrito;
-    }
-    //Borrar carrito
+
+    // Borrar carrito
     @DeleteMapping("/api/carrito/{idCarrito}")
-    public void borrarCarrito(@PathVariable int idCarrito) {
-        carritos.remove(idCarrito);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void borrarCarrito(@PathVariable Long idCarrito) {
+        carritoService.eliminarCarrito(idCarrito);
     }
 
+
+    // Añadir línea de carrito (artículo)
+    @PostMapping("/api/carrito/{idCarrito}/articulos")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Articulo añadirArticulo(
+            @PathVariable Long idCarrito,
+            @Valid @RequestBody Articulo articulo) {
+
+        return carritoService.añadirArticulo(idCarrito, articulo);
+    }
+
+
+    // Borrar línea de carrito
+    @DeleteMapping("/api/articulos/{idArticuloLinea}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminarArticulo(@PathVariable Long idArticuloLinea) {
+        carritoService.eliminarArticulo(idArticuloLinea);
+    }
 
 }

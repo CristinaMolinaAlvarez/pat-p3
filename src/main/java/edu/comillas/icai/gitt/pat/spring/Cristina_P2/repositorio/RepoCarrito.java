@@ -4,5 +4,5 @@ import edu.comillas.icai.gitt.pat.spring.Cristina_P2.entidad.Carrito;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface CarritoRepository extends CrudRepository<Carrito, Long> {
+public interface RepoCarrito extends CrudRepository<Carrito, Long> {
 }

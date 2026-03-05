@@ -1,16 +1,9 @@
-package edu.comillas.icai.gitt.pat.spring.Cristina_P2.modelo;
+package edu.comillas.icai.gitt.pat.spring.Cristina_P2.entidad;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.persistence.Id;
-
-
-package edu.comillas.icai.gitt.pat.spring.Cristina_P2.modelo;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "articulos")
@@ -47,42 +40,31 @@ public class Articulo {
         this.unidades = unidades;
     }
 
-    public Long getIdArticuloLinea() {
-        return idArticuloLinea;
-    }
-
+    public Long getIdArticuloLinea() {return idArticuloLinea; }
     public void setIdArticuloLinea(Long idArticuloLinea) {
         this.idArticuloLinea = idArticuloLinea;
     }
-
     public Carrito getCarrito() {
         return carrito;
     }
-
     public void setCarrito(Carrito carrito) {
         this.carrito = carrito;
     }
-
     public Long getIdArticulo() {
         return idArticulo;
     }
-
     public void setIdArticulo(Long idArticulo) {
         this.idArticulo = idArticulo;
     }
-
     public Double getPrecioUnitario() {
         return precioUnitario;
     }
-
     public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-
     public Integer getUnidades() {
         return unidades;
     }
-
     public void setUnidades(Integer unidades) {
         this.unidades = unidades;
     }
