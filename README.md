@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Práctica 2 – API REST Carrito
 
 ## Descripción
@@ -43,3 +44,6 @@ Se utiliza Bean Validation mediante anotaciones en el modelo Carrito:
 
 Las validaciones se activan en los endpoints POST y PUT usando la anotación @Valid.  
 Si los datos no cumplen las restricciones, la API devuelve automáticamente un **400 Bad Request**.
+=======
+# pat-p3
+>>>>>>> f3b6327106122e222794b4bf12297c4e1a783cbb
